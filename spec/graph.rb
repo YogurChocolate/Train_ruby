@@ -53,16 +53,33 @@ class Graph
 
   def get_path_num_within_max_node (start_node, end_node, max_stop)
     path_num=0
+    if max_stop<0
+      return 0
+    end
+    if start_node==end_node
+      path_num+=1
+    end
+
     @store[start_node].each do |one_path|
-      if max_stop<0
-        return 0
-        continue
-      elsif one_path[0]==end_node
-        path_num+=1
-      end
-      path_num+=get_path_num_within_max_node(one_path[0], end_node, max_stop-1 ).to_i
+      path_num+=get_path_num_within_max_node(one_path[0], end_node, max_stop-1).to_i
       return path_num
     end
   end
 
+
+  def get_path_num_within_exactly_node (start_node, end_node, exactly_stop)
+    path_num=0
+    if exactly_stop<0
+      return 0
+    end
+
+    if start_node==end_node && exactly_stop==0
+      path_num+=1
+    end
+
+    @store[start_node].each do |one_path|
+      path_num+=get_path_num_within_exactly_node(one_path[0], end_node, exactly_stop-1).to_i
+    end
+    return path_num
+  end
 end
