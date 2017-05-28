@@ -1,13 +1,15 @@
 class Graph
   @store
   @already_find_one_shortest_route
-  attr_accessor :store ,:already_find_one_shortest_route
+  @already_find_routes_num
+  attr_accessor :store, :already_find_one_shortest_route, :already_find_routes_num
 
 
   def initialize
     nodes_and_distance= ['AB5', 'BC4', 'CD8', 'DC8', 'DE6', 'AD5', 'CE2', 'EB3', 'AE7']
     storePath nodes_and_distance
     @already_find_one_shortest_route=65535
+    @already_find_routes_num=0
   end
 
 
@@ -86,7 +88,7 @@ class Graph
   end
 
 
-  def get_shortest_route(start_node,end_node,already_pass_route_length=0)
+  def get_shortest_route(start_node, end_node, already_pass_route_length=0)
     if @already_find_one_shortest_route < already_pass_route_length
       return
     end
@@ -97,9 +99,33 @@ class Graph
     end
 
     @store[start_node].each do |one_path|
-      get_shortest_route(one_path[0],end_node,already_pass_route_length+one_path[1])
+      get_shortest_route(one_path[0], end_node, already_pass_route_length+one_path[1])
     end
     return @already_find_one_shortest_route
   end
 
-end
+
+  def get_different_routes_num(start_node, end_node, max_route_length, already_pass_route_length=0)
+    @already_find_routes_num=0
+    get_different_routes_num_function(start_node, end_node, max_route_length,already_pass_route_length)
+    return @already_find_routes_num
+  end
+
+
+    private
+
+    def get_different_routes_num_function(start_node, end_node, max_route_length, already_pass_route_length)
+      if already_pass_route_length>=max_route_length
+        return
+      end
+
+      if start_node==end_node && already_pass_route_length!=0
+        @already_find_routes_num+=1
+      end
+
+      @store[start_node].each do |one_path|
+        get_different_routes_num_function(one_path[0], end_node, max_route_length, already_pass_route_length+one_path[1])
+      end
+    end
+
+  end

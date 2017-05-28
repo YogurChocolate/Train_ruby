@@ -48,7 +48,7 @@ describe 'graph inited' do
   end
 
   it 'The number of different routes from C to C with a distance of less than 30 should be 7' do
-    expect(graph.get_different_routes('B','B',30)).to eql 7
+    expect(graph.get_different_routes_num('C','C',30)).to eql 7
   end
 
 end
