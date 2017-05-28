@@ -35,4 +35,9 @@ describe 'graph inited' do
     expect(graph.get_path_num_within_max_node('C','C',3)).to eql 2
   end
 
+  it 'The number of trips starting at A and ending at C with a exactly of 4 stops should be 3' do
+    expect(graph.get_path_num_within_exactly_node('A','C',4)).to eql 3
+  end
+
+
 end
