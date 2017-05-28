@@ -15,4 +15,8 @@ describe 'graph inited' do
     expect(graph.getlength('ABC')).to eql 9
   end
 
+  it 'The distance of the route A-D should be 5' do
+    expect(graph.getlength('AD')).to eql 5
+  end
+
 end
