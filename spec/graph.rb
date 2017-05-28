@@ -15,7 +15,7 @@ class Graph
       one_path=nodes_and_distance[i]
       start_node=one_path[0]
       end_node=one_path[1]
-      distance=one_path[2]
+      distance=one_path[2].to_i
 
       if !@store.has_key?(start_node)
       then
@@ -25,6 +25,7 @@ class Graph
       end
     end
   end
+
 
   def get_length nodes
     path_length=0
@@ -43,12 +44,25 @@ class Graph
         end
       end
       if !is_available
-         return 'NO SUCH ROUTE'
+        return 'NO SUCH ROUTE'
       end
     end
     return path_length
   end
 
 
+  def get_path_num_within_max_node (start_node, end_node, max_stop)
+    path_num=0
+    @store[start_node].each do |one_path|
+      if max_stop<0
+        return 0
+        continue
+      elsif one_path[0]==end_node
+        path_num+=1
+      end
+      path_num+=get_path_num_within_max_node(one_path[0], end_node, max_stop-1 ).to_i
+      return path_num
+    end
+  end
 
 end
