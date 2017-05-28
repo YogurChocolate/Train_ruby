@@ -1,11 +1,13 @@
 class Graph
   @store
-  attr_accessor :store
+  @already_find_one_shortest_route
+  attr_accessor :store ,:already_find_one_shortest_route
 
 
   def initialize
     nodes_and_distance= ['AB5', 'BC4', 'CD8', 'DC8', 'DE6', 'AD5', 'CE2', 'EB3', 'AE7']
     storePath nodes_and_distance
+    @already_find_one_shortest_route=65535
   end
 
 
@@ -83,5 +85,23 @@ class Graph
     return path_num
   end
 
+
+
+  def get_shortest_route(start_node,end_node,already_pass_route_length=0)
+    require 'byebug'; byebug;
+    if @already_find_one_shortest_route < already_pass_route_length
+      return
+    end
+
+    if start_node==end_node
+      @already_find_one_shortest_route=already_pass_route_length
+      return
+    end
+
+    @store[start_node].each do |one_path|
+      get_shortest_route(one_path[0],end_node,already_pass_route_length+one_path[1])
+    end
+    return @already_find_one_shortest_route
+  end
 
 end

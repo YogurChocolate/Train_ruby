@@ -40,7 +40,7 @@ describe 'graph inited' do
   end
 
   it 'The length of the shortest route from A to C should be 9' do
-    expect(graph.get_shortest_route('A','C')).to eql 9
+    expect(graph.get_shortest_route('A','C',0)).to eql 9
   end
 
 end
