@@ -26,7 +26,7 @@ class Graph
     end
   end
 
-  def getlength nodes
+  def get_length nodes
     path_length=0
     nodes_arr=nodes.split('')
     (0...nodes_arr.length-1).each do |i|

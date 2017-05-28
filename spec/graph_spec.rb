@@ -12,11 +12,23 @@ describe 'graph inited' do
   end
 
   it 'The distance of the route A-B-C should be 9' do
-    expect(graph.getlength('ABC')).to eql 9
+    expect(graph.get_length('ABC')).to eql 9
   end
 
   it 'The distance of the route A-D should be 5' do
-    expect(graph.getlength('AD')).to eql 5
+    expect(graph.get_length('AD')).to eql 5
+  end
+
+  it 'The distance of the route A-D-C should be 13' do
+    expect(graph.get_length('ADC')).to eql 13
+  end
+
+  it 'The distance of the route A-E-B-C-D should be 22' do
+    expect(graph.get_length('AEBCD')).to eql 22
+  end
+
+  it 'The distance of the route A-D-E should be NO SUCH ROUTE' do
+    expect(graph.get_length('ADE')).to eql 'NO SUCH ROUTE'
   end
 
 end
