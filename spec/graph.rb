@@ -91,7 +91,7 @@ class Graph
       return
     end
 
-    if start_node==end_node
+    if start_node==end_node && already_pass_route_length!=0
       @already_find_one_shortest_route=already_pass_route_length
       return
     end
