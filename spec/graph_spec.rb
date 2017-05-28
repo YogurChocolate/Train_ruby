@@ -39,5 +39,8 @@ describe 'graph inited' do
     expect(graph.get_path_num_within_exactly_node('A','C',4)).to eql 3
   end
 
+  it 'The length of the shortest route from A to C should be 9' do
+    expect(graph.get_shortest_route('A','C')).to eql 9
+  end
 
 end
