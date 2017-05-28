@@ -27,7 +27,20 @@ class Graph
   end
 
   def getlength nodes
-    return 9
+    path_length=0
+    nodes_arr=nodes.split('')
+    (0...nodes_arr.length-1).each do |i|
+      pre_node=nodes_arr[i]
+      next_node=nodes_arr[i+1]
+      can_arive_node_and_lenth=@store[pre_node]
+
+      can_arive_node_and_lenth.each do |one_path|
+        if one_path[0]==next_node
+          path_length+=one_path[1].to_i
+        end
+      end
+    end
+    return path_length
   end
 
 end
