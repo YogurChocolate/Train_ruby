@@ -31,4 +31,8 @@ describe 'graph inited' do
     expect(graph.get_length('AED')).to eql 'NO SUCH ROUTE'
   end
 
+  it 'The number of trips starting at C and ending at C with a maximum of 3 stops should be 2' do
+    expect(graph.get_path_num_within_max_node('CC',3)).to eql 2
+  end
+
 end
