@@ -28,7 +28,7 @@ describe 'graph inited' do
   end
 
   it 'The distance of the route A-D-E should be NO SUCH ROUTE' do
-    expect(graph.get_length('ADE')).to eql 'NO SUCH ROUTE'
+    expect(graph.get_length('AED')).to eql 'NO SUCH ROUTE'
   end
 
 end

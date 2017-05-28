@@ -3,7 +3,6 @@ class Graph
   attr_accessor :store
 
 
-
   def initialize
     nodes_and_distance= ['AB5', 'BC4', 'CD8', 'DC8', 'DE6', 'AD5', 'CE2', 'EB3', 'AE7']
     storePath nodes_and_distance
@@ -19,9 +18,10 @@ class Graph
       distance=one_path[2]
 
       if !@store.has_key?(start_node)
-        then @store[start_node]=[[end_node,distance]]
+      then
+        @store[start_node]=[[end_node, distance]]
       else
-        @store[start_node]= @store[start_node]+[[end_node,distance]]
+        @store[start_node]= @store[start_node]+[[end_node, distance]]
       end
     end
   end
@@ -34,10 +34,16 @@ class Graph
       next_node=nodes_arr[i+1]
       can_arive_node_and_lenth=@store[pre_node]
 
+      is_available=false
       can_arive_node_and_lenth.each do |one_path|
         if one_path[0]==next_node
+          is_available=true
           path_length+=one_path[1].to_i
+          break
         end
+      end
+      if !is_available
+         return 'NO SUCH ROUTE'
       end
     end
     return path_length
