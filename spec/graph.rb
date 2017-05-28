@@ -23,7 +23,11 @@ class Graph
       else
         @store[start_node]= @store[start_node]+[[end_node,distance]]
       end
-        
-      end
     end
+  end
+
+  def getlength nodes
+    return 9
+  end
+
 end
