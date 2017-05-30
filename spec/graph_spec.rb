@@ -1,6 +1,5 @@
 require 'rspec'
-require '~/ruby/Train_ruby/spec/graph.rb'
-
+require './src/graph'
 
 describe 'graph inited' do
 
