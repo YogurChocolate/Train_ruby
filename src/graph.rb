@@ -5,8 +5,8 @@ class Graph
   attr_accessor :store, :already_find_one_shortest_route, :already_find_routes_num
 
 
-  def initialize
-    nodes_and_distance= ['AB5', 'BC4', 'CD8', 'DC8', 'DE6', 'AD5', 'CE2', 'EB3', 'AE7']
+  def initialize (input_data)
+    nodes_and_distance= input_data
     storePath nodes_and_distance
     @already_find_one_shortest_route=65535
     @already_find_routes_num=0
