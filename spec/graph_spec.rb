@@ -11,34 +11,34 @@ describe 'graph inited by given input_value' do
     expect(graph.store).to eql excpte_store
   end
 
-  it 'The exist route should return right distance' do
+  it 'Get length of exist route should return right distance' do
     expect(graph.get_length('ABC')).to eql 9
     expect(graph.get_length('AD')).to eql 5
     expect(graph.get_length('ADC')).to eql 13
     expect(graph.get_length('AEBCD')).to eql 22
   end
 
-  it 'The not exist route should return NO SUCH ROUTE' do
+  it 'Get length of not exist route should return NO SUCH ROUTE' do
     expect(graph.get_length('AED')).to eql 'NO SUCH ROUTE'
   end
 
-  it 'The start and end node same should retrun right path num within max node' do
+  it 'Get path num within max stop of start and end node same should retrun right path num' do
     expect(graph.get_path_num_within_max_node('C','C',3)).to eql 2
   end
 
-  it 'The start and end node different should retrun right path num within max node' do
+  it 'Get path num within max stop of start and end node different should retrun right path num' do
     expect(graph.get_path_num_within_exactly_node('A','C',4)).to eql 3
   end
 
-  it 'The start and end node different should retrun right shortest route length' do
+  it 'Get shortest route length of the start and end node different should retrun right' do
     expect(graph.get_shortest_route('A','C',0)).to eql 9
   end
 
-  it 'The start and end node same should retrun right shortest route length' do
+  it 'Get shortest route length of the start and end node same should retrun right' do
     expect(graph.get_shortest_route('B','B',0)).to eql 9
   end
 
-  it 'The number of different routes from C to C with a distance of less than 30 should be 7' do
+  it 'Get different routes num within max route length should be right' do
     expect(graph.get_different_routes_num('C','C',30)).to eql 7
   end
 
