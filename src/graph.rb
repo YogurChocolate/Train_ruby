@@ -2,7 +2,6 @@ class Graph
   @store
   attr_accessor :store
 
-
   def initialize (input_data)
     @store=Hash.new
     storePath input_data
@@ -23,4 +22,5 @@ class Graph
       end
     end
   end
+
 end
