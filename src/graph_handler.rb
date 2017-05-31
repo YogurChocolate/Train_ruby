@@ -2,7 +2,7 @@ class GraphHandler
   @store
   @already_find_one_shortest_route
   @already_find_routes_num
-  attr_accessor :store, :already_find_one_shortest_route, :already_find_routes_num
+  attr_accessor :store, :already_find_routes_num
 
 
   def initialize(graph)
@@ -35,37 +35,13 @@ class GraphHandler
 
 
   def get_trips_num_with_max_stops (start_node, end_node, max_stops)
-    trips_num=0
-    if max_stops<0
-      return 0
-    end
-
-    if start_node==end_node
-      trips_num+=1
-    end
-
-    @store[start_node].each do |node_distance|
-      trips_num+=get_trips_num_with_max_stops(node_distance[0], end_node, max_stops-1)
-      return trips_num
-    end
+    get_trips_num_with_max_or_exactly_stops(start_node,end_node,max_stops,true)
   end
-
 
   def get_trips_num_with_exactly_stops (start_node, end_node, exactly_stops)
-    trips_num=0
-    if exactly_stops<0
-      return 0
-    end
-
-    if start_node==end_node && exactly_stops==0
-      trips_num+=1
-    end
-
-    @store[start_node].each do |node_distance|
-      trips_num+=get_trips_num_with_exactly_stops(node_distance[0], end_node, exactly_stops-1)
-    end
-    return trips_num
+    get_trips_num_with_max_or_exactly_stops(start_node,end_node,exactly_stops,false)
   end
+
 
 
   def get_shortest_route_length(start_node, end_node, already_pass_route_length=0)
@@ -93,6 +69,23 @@ class GraphHandler
 
 
   private
+
+  def get_trips_num_with_max_or_exactly_stops(start_node, end_node, stops, is_stops_max)
+    trips_num=0
+    if stops<0
+      return 0
+    end
+
+    if start_node==end_node && (stops==0||is_stops_max)
+      trips_num+=1
+    end
+
+    @store[start_node].each do |node_distance|
+      trips_num+=get_trips_num_with_exactly_stops(node_distance[0], end_node, stops-1)
+    end
+    return trips_num
+  end
+
 
   def get_different_routes_num_function(start_node, end_node, max_route_length, already_pass_route_length)
     if already_pass_route_length>=max_route_length
