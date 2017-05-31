@@ -1,10 +1,10 @@
 class GraphHandler
-  FIXNUM_MAX = (2**(0.size * 8 -2) -1)
+  MAX_ROUTE_LEN=200
   attr_accessor :store
 
   def initialize(graph)
     @store=graph.store
-    @already_find_one_shortest_route=FIXNUM_MAX
+    @already_find_one_shortest_route=MAX_ROUTE_LEN
     @already_find_routes_num=0
   end
 
@@ -39,28 +39,14 @@ class GraphHandler
     compute_trips_num_with_max_or_exactly_stops(start_node, end_node, exactly_stops, false)
   end
 
-
-
-  def get_shortest_route_length(start_node, end_node, already_pass_route_length=0)
-    if @already_find_one_shortest_route < already_pass_route_length
-      return
-    end
-
-    if start_node==end_node && already_pass_route_length!=0
-      @already_find_one_shortest_route=already_pass_route_length
-      return
-    end
-
-    @store[start_node].each do |one_path|
-      get_shortest_route_length(one_path[0], end_node, already_pass_route_length+one_path[1])
-    end
-    return @already_find_one_shortest_route
+  def get_shortest_route_length(start_node, end_node, already_past_route_length=0)
+    @already_find_one_shortest_route=MAX_ROUTE_LEN
+    return compute_shortest_routes_length_function(start_node, end_node, already_past_route_length)
   end
 
-
-  def get_different_routes_num(start_node, end_node, less_than_length, already_past_length=0)
+  def compute_different_routes_num(start_node, end_node, less_than_length, already_past_length=0)
     @already_find_routes_num=0
-    get_different_routes_num_function(start_node, end_node, less_than_length, already_past_length)
+    compute_different_routes_num_function(start_node, end_node, less_than_length, already_past_length)
     return @already_find_routes_num
   end
 
@@ -84,18 +70,35 @@ class GraphHandler
   end
 
 
-  def get_different_routes_num_function(start_node, end_node, max_route_length, already_pass_route_length)
-    if already_pass_route_length>=max_route_length
+  def compute_different_routes_num_function(start_node, end_node, max_route_length, already_past_route_length)
+    if already_past_route_length>=max_route_length
       return
     end
 
-    if start_node==end_node && already_pass_route_length!=0
+    if start_node==end_node && already_past_route_length!=0
       @already_find_routes_num+=1
     end
 
     @store[start_node].each do |one_path|
-      get_different_routes_num_function(one_path[0], end_node, max_route_length, already_pass_route_length+one_path[1])
+      compute_different_routes_num_function(one_path[0], end_node, max_route_length, already_past_route_length+one_path[1])
     end
+  end
+
+
+  def compute_shortest_routes_length_function(start_node, end_node, already_past_route_length=0)
+    if @already_find_one_shortest_route < already_past_route_length
+      return
+    end
+
+    if start_node==end_node && already_past_route_length!=0
+      @already_find_one_shortest_route=already_past_route_length
+      return
+    end
+
+    @store[start_node].each do |one_path|
+      compute_shortest_routes_length_function(one_path[0], end_node, already_past_route_length+one_path[1])
+    end
+    return @already_find_one_shortest_route
   end
 
 end

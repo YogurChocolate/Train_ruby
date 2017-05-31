@@ -30,7 +30,7 @@ describe 'graph inited by given input_value' do
 
 
   it 'Get different routes num less than given route length should be right' do
-    expect(graph_handler.get_different_routes_num('C','C',30)).to eql 7
+    expect(graph_handler.compute_different_routes_num('C', 'C', 30)).to eql 7
   end
 
 end
