@@ -1,18 +1,15 @@
 class GraphHandler
-  @store
-  @already_find_one_shortest_route
-  @already_find_routes_num
-  attr_accessor :store, :already_find_routes_num
-
+  FIXNUM_MAX = (2**(0.size * 8 -2) -1)
+  attr_accessor :store
 
   def initialize(graph)
     @store=graph.store
-    @already_find_one_shortest_route=65535
+    @already_find_one_shortest_route=FIXNUM_MAX
     @already_find_routes_num=0
   end
 
 
-  def get_route_distance route
+  def compute_route_distance route
     route_distance=0
     nodes=route.split('')
     (0...nodes.length-1).each do |i|
@@ -34,12 +31,12 @@ class GraphHandler
   end
 
 
-  def get_trips_num_with_max_stops (start_node, end_node, max_stops)
-    get_trips_num_with_max_or_exactly_stops(start_node,end_node,max_stops,true)
+  def compute_trips_num_with_max_stops (start_node, end_node, max_stops)
+    compute_trips_num_with_max_or_exactly_stops(start_node, end_node, max_stops, true)
   end
 
-  def get_trips_num_with_exactly_stops (start_node, end_node, exactly_stops)
-    get_trips_num_with_max_or_exactly_stops(start_node,end_node,exactly_stops,false)
+  def compute_trips_num_with_exactly_stops (start_node, end_node, exactly_stops)
+    compute_trips_num_with_max_or_exactly_stops(start_node, end_node, exactly_stops, false)
   end
 
 
@@ -61,27 +58,27 @@ class GraphHandler
   end
 
 
-  def get_different_routes_num(start_node, end_node, max_route_length, already_pass_route_length=0)
+  def get_different_routes_num(start_node, end_node, less_than_length, already_past_length=0)
     @already_find_routes_num=0
-    get_different_routes_num_function(start_node, end_node, max_route_length, already_pass_route_length)
+    get_different_routes_num_function(start_node, end_node, less_than_length, already_past_length)
     return @already_find_routes_num
   end
 
 
   private
 
-  def get_trips_num_with_max_or_exactly_stops(start_node, end_node, stops, is_stops_max)
+  def compute_trips_num_with_max_or_exactly_stops(start_node, end_node, stops, is_max_stops)
     trips_num=0
     if stops<0
       return 0
     end
 
-    if start_node==end_node && (stops==0||is_stops_max)
+    if start_node==end_node && (stops==0||is_max_stops)
       trips_num+=1
     end
 
     @store[start_node].each do |node_distance|
-      trips_num+=get_trips_num_with_exactly_stops(node_distance[0], end_node, stops-1)
+      trips_num+=compute_trips_num_with_exactly_stops(node_distance[0], end_node, stops-1)
     end
     return trips_num
   end
