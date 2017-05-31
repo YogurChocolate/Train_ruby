@@ -9,14 +9,14 @@ describe 'graph inited by given input_value' do
   graph_handler=GraphHandler.new(graph)
 
   it 'Get length of exist route should return right distance' do
-    expect(graph_handler.get_length('ABC')).to eql 9
-    expect(graph_handler.get_length('AD')).to eql 5
-    expect(graph_handler.get_length('ADC')).to eql 13
-    expect(graph_handler.get_length('AEBCD')).to eql 22
+    expect(graph_handler.get_route_distance('ABC')).to eql 9
+    expect(graph_handler.get_route_distance('AD')).to eql 5
+    expect(graph_handler.get_route_distance('ADC')).to eql 13
+    expect(graph_handler.get_route_distance('AEBCD')).to eql 22
   end
 
   it 'Get length of not exist route should return NO SUCH ROUTE' do
-    expect(graph_handler.get_length('AED')).to eql 'NO SUCH ROUTE'
+    expect(graph_handler.get_route_distance('AED')).to eql 'NO SUCH ROUTE'
   end
 
   it 'Get path num within max stop of start and end node same should retrun right path num' do

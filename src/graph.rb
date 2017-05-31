@@ -2,17 +2,17 @@ class Graph
   @store
   attr_accessor :store
 
-  def initialize (input_data)
+  def initialize (routes_distances)
     @store=Hash.new
-    storePath input_data
+    storePath routes_distances
   end
 
-  def storePath nodes_and_distance
-    (0...nodes_and_distance.length).each do |i|
-      one_path=nodes_and_distance[i]
-      start_node=one_path[0]
-      end_node=one_path[1]
-      distance=one_path[2].to_i
+  def storePath routes_distances
+    (0...routes_distances.length).each do |i|
+      one_route_distance=routes_distances[i]
+      start_node=one_route_distance[0]
+      end_node=one_route_distance[1]
+      distance=one_route_distance[2].to_i
 
       if !@store.has_key?(start_node)
       then

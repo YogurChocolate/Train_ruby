@@ -12,19 +12,19 @@ class GraphHandler
   end
 
 
-  def get_length nodes
-    path_length=0
-    nodes_arr=nodes.split('')
-    (0...nodes_arr.length-1).each do |i|
-      pre_node=nodes_arr[i]
-      next_node=nodes_arr[i+1]
-      can_arive_node_and_lenth=@store[pre_node]
+  def get_route_distance route
+    route_distance=0
+    nodes=route.split('')
+    (0...nodes.length-1).each do |i|
+      pre_node=nodes[i]
+      next_node=nodes[i+1]
+      can_arivle_node_and_length=@store[pre_node]
 
       is_available=false
-      can_arive_node_and_lenth.each do |one_path|
+      can_arivle_node_and_length.each do |one_path|
         if one_path[0]==next_node
           is_available=true
-          path_length+=one_path[1].to_i
+          route_distance+=one_path[1].to_i
           break
         end
       end
@@ -32,7 +32,7 @@ class GraphHandler
         return 'NO SUCH ROUTE'
       end
     end
-    return path_length
+    return route_distance
   end
 
 
