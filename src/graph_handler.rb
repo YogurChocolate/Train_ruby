@@ -39,7 +39,7 @@ class GraphHandler
     compute_trips_num_with_max_or_exactly_stops(start_node, end_node, exactly_stops, false)
   end
 
-  def get_shortest_route_length(start_node, end_node, already_past_route_length=0)
+  def compute_shortest_route_length(start_node, end_node, already_past_route_length=0)
     @already_find_one_shortest_route=MAX_ROUTE_LEN
     return compute_shortest_routes_length_function(start_node, end_node, already_past_route_length)
   end

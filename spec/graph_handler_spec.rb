@@ -24,8 +24,8 @@ describe 'graph inited by given input_value' do
   end
 
   it 'Get shortest route length should retrun right' do
-    expect(graph_handler.get_shortest_route_length('A', 'C', 0)).to eql 9
-    expect(graph_handler.get_shortest_route_length('B', 'B', 0)).to eql 9
+    expect(graph_handler.compute_shortest_route_length('A', 'C', 0)).to eql 9
+    expect(graph_handler.compute_shortest_route_length('B', 'B', 0)).to eql 9
   end
 
 
