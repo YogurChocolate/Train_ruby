@@ -6,6 +6,7 @@ class GraphHandler
     @store=graph.store
     @already_find_one_shortest_route=MAX_ROUTE_LEN
     @already_find_routes_num=0
+    @trip_nodes=[]
   end
 
 
@@ -60,11 +61,12 @@ class GraphHandler
     end
 
     if start_node==end_node && (stops==0||is_max_stops)
+      stops-=1
       trips_num+=1
     end
 
     @store[start_node].each do |node_distance|
-      trips_num+=compute_trips_num_with_exactly_stops(node_distance[0], end_node, stops-1)
+      trips_num+=compute_trips_num_with_max_or_exactly_stops(node_distance[0], end_node, stops-1, is_max_stops)
     end
     return trips_num
   end
