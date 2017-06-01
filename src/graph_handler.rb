@@ -6,7 +6,6 @@ class GraphHandler
     @store=graph.store
     @already_find_one_shortest_route=MAX_ROUTE_LEN
     @already_find_routes_num=0
-    @trip_nodes=[]
   end
 
 
